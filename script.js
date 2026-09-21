@@ -146,27 +146,28 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-        if (whatsappCheckoutBtn) {
-        whatsappCheckoutBtn.addEventListener("click", () => {
-            if (cart.length === 0) return;
+       // 🟢 UPDATE THIS ENTIRE CLICK EVENT IN YOUR script.js FILE
+if (whatsappCheckoutBtn) {
+    whatsappCheckoutBtn.addEventListener("click", () => {
+        if (cart.length === 0) return;
 
-            let messageText = "Hello Gourmet Express! 🍔\n\nI want to place a new order:\n";
-            let finalTotal = 0;
+        let messageText = "Hello Gourmet Express! 🍔\n\nI want to place a new order:\n";
+        let finalTotal = 0;
 
-            cart.forEach((item, index) => {
-                const subtotal = item.price * item.quantity;
-                finalTotal += subtotal;
-                messageText += `${index + 1}. *${item.name}* (x${item.quantity}) - ₦${subtotal.toLocaleString()}\n`;
-            });
-
-            messageText += `\n💵 *Total Bill:* ₦${finalTotal.toLocaleString()}\n\nPlease confirm my order details!`;
-            
-            // 🟢 CLEAN & SAFE URL CONCATENATION (No risky template strings)
-            const finalUrl = "https://wa.me/2347081485609" + RESTAURANT_PHONE + "?text=" + encodeURIComponent(messageText);
-            
-            window.open(finalUrl, "_blank", "noopener,noreferrer");
+        cart.forEach((item, index) => {
+            const subtotal = item.price * item.quantity;
+            finalTotal += subtotal;
+            messageText += `${index + 1}. *${item.name}* (x${item.quantity}) - ₦${subtotal.toLocaleString()}\n`;
         });
-    }
+
+        messageText += `\n💵 *Total Bill:* ₦${finalTotal.toLocaleString()}\n\nPlease confirm my order details!`;
+        
+        const finalUrl = "https://wa.me/" + RESTAURANT_PHONE + "?text=" + encodeURIComponent(messageText);
+        
+        // 🟢 FIX: Change window.open to window.location.href to trigger the real app instantly!
+        window.location.href = finalUrl; 
+    });
+}
 
 
     function triggerKitchenDashboardAlert(itemName) {
